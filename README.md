@@ -2,7 +2,7 @@ This is a test case for the QueuedJobs error I'm having.
 
 Instructions:
 1) docker-compose up
-2) dev/build
+2) composer install and dev/build
 3) Go in to the CMS at localhost:8000 (login admin/admin)
 4) Pick a page and give it an embargo time/date,, save it.
 5) Go to http://localhost:8000/dev/tasks/ProcessJobQueueTask
