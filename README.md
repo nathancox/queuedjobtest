@@ -1,28 +1,17 @@
-## Overview
+This is a test case for the QueuedJobs error I'm having.
 
-Base project folder for a SilverStripe ([http://silverstripe.org](http://silverstripe.org)) installation. Required modules are installed via [http://github.com/silverstripe/recipe-cms](http://github.com/silverstripe/recipe-cms). For information on how to change the dependencies in a recipe, please have a look at [https://github.com/silverstripe/recipe-plugin](https://github.com/silverstripe/recipe-plugin). In addition, installer includes [theme/simple](https://github.com/silverstripe-themes/silverstripe-simple) as a default theme.
+Instructions:
+1) docker-compose up
+2) dev/build
+3) Go in to the CMS at localhost:8000 (login admin/admin)
+4) Pick a page and give it an embargo time/date,, save it.
+5) Go to http://localhost:8000/dev/tasks/ProcessJobQueueTask
 
-## Installation ##
+Sometimes you have to repeat steps 4 and 5 two or three times before it has the following errors:
 
-See [installation on different platforms](http://doc.silverstripe.org/framework/en/installation/),
-and [installation from source](http://doc.silverstripe.org/framework/en/installation/from-source).
+```
+[2019-01-31 16:38:16] error-log.ERROR: Uncaught Exception Error: "Call to a member function hasMethod() on null" at /var/www/html/vendor/symbiote/silverstripe-queuedjobs/src/Jobs/DoormanQueuedJobTask.php line 161 {"exception":"[object] (Error(code: 0): Call to a member function hasMethod() on null at /var/www/html/vendor/symbiote/silverstripe-queuedjobs/src/Jobs/DoormanQueuedJobTask.php:161)"} []
+[2019-01-31 16:52:45] error-log.ERROR: Uncaught Exception Error: "Call to a member function hasMethod() on null" at /var/www/html/vendor/symbiote/silverstripe-queuedjobs/src/Jobs/DoormanQueuedJobTask.php line 161 {"exception":"[object] (Error(code: 0): Call to a member function hasMethod() on null at /var/www/html/vendor/symbiote/silverstripe-queuedjobs/src/Jobs/DoormanQueuedJobTask.php:161)"} []
+```
 
-## Bugtracker ##
-
-Bugs are tracked on github.com ([framework issues](https://github.com/silverstripe/silverstripe-framework/issues),
-[cms issues](https://github.com/silverstripe/silverstripe-cms/issues)).
-Please read our [issue reporting guidelines](https://docs.silverstripe.org/en/4/contributing/issues_and_bugs/).
-
-## Development and Contribution ##
-
-If you would like to make changes to the SilverStripe core codebase, we have an extensive [guide to contributing code](http://doc.silverstripe.org/framework/en/misc/contributing/code).
-
-## Links ##
-
- * [Changelogs](http://doc.silverstripe.org/framework/en/changelogs/)
- * [Bugtracker: Framework](https://github.com/silverstripe/silverstripe-framework/issues)
- * [Bugtracker: CMS](https://github.com/silverstripe/silverstripe-cms/issues)
- * [Bugtracker: Installer](https://github.com/silverstripe/silverstripe-installer/issues)
- * [Forums](http://silverstripe.org/forums)
- * [Developer Mailinglist](https://groups.google.com/forum/#!forum/silverstripe-dev)
- * [License](./LICENSE)
+If you remove cwp-core from the composer requirements the error seems to stop.
